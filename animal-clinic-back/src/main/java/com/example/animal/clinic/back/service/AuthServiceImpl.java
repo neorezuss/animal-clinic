@@ -27,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordRepository passwordRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    private final EmailSenderService emailSenderService;
 
     @Override
     public AuthResponse authenticateUser(LoginDto loginDto) {
@@ -78,6 +79,10 @@ public class AuthServiceImpl implements AuthService {
 
         passwordRepository.save(password);
 
+        new Thread(() -> emailSenderService.sendRegistrationEmail(
+                user.getEmail(),
+                user.getFirstName(),
+                password.getPassword())).start();
         log.info("User with email {} was registered.", user.getEmail());
         return registrationDto;
     }

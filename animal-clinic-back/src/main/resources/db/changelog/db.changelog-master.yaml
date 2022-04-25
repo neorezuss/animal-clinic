@@ -18,6 +18,9 @@ databaseChangeLog:
       file: changesets/create-table-roles.sql
       relativeToChangelogFile: true
   - include:
+      file: changesets/fill-table-roles.sql
+      relativeToChangelogFile: true
+  - include:
       file: changesets/create-table-user-role.sql
       relativeToChangelogFile: true
   - include:
