@@ -1,6 +1,6 @@
 package com.example.animal.clinic.back.dto;
 
-import com.example.animal.clinic.back.entity.Gender;
+import com.example.animal.clinic.back.entity.GenderEnum;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;
@@ -20,7 +20,7 @@ public class RegistrationDto {
     @NotBlank(message = "Patronymic may not be blank")
     @Size(min = 2, max = 255, message = "Patronymic length should be between 2 and 255 characters")
     private String patronymic;
-    private Gender gender;
+    private GenderEnum gender;
     private Date birthDate;
     @NotBlank(message = "Phone number may not be blank")
     @Pattern(regexp = "(\\+375)(25|29|44)[0-9]{7}", message = "Phone number must be in +375(25|29|44)XXXXXXX format")

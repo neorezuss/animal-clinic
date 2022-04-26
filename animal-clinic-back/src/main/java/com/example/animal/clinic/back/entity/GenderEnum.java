@@ -1,5 +1,5 @@
 package com.example.animal.clinic.back.entity;
 
-public enum Gender {
+public enum GenderEnum {
     MALE, FEMALE
 }
