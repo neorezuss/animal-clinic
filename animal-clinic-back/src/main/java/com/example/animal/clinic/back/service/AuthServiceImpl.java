@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -32,9 +34,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse authenticateUser(LoginDto loginDto) {
         User user = findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+
         String accessToken = jwtProvider.generateAccessToken(user.getEmail(), user.getRoles());
         String refreshToken = jwtProvider.generateRefreshToken(user.getEmail());
         log.info("User with email {} was authenticated.", user.getEmail());
+
         return new AuthResponse(accessToken, refreshToken);
     }
 
@@ -50,11 +54,34 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse refreshTokens(RefreshTokenDto refreshTokenDto) {
         jwtProvider.validateToken(refreshTokenDto.getRefreshToken());
         String email = jwtProvider.getEmailFromToken(refreshTokenDto.getRefreshToken());
+
         User user = findByEmail(email);
+
         String accessToken = jwtProvider.generateAccessToken(user.getEmail(), user.getRoles());
         String refreshToken = jwtProvider.generateRefreshToken(user.getEmail());
         log.info("Tokens for user with email {} was refreshed.", email);
+
         return new AuthResponse(accessToken, refreshToken);
+    }
+
+    @Override
+    public boolean recoverPassword(String email) {
+        if (!userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("User with email " + email + " doesnt exist.");
+        }
+
+        String newPassword = generateRandomPassword(16);
+
+        Password password = passwordRepository.findByUserEmail(email);
+        password.setPassword(passwordEncoder.encode(newPassword));
+        passwordRepository.save(password);
+
+        new Thread(() -> emailSenderService.sendPasswordRecoveryEmail(
+                email,
+                newPassword)).start();
+
+        log.info("User with email {} changed password.", email);
+        return true;
     }
 
     private RegistrationDto saveUser(RegistrationDto registrationDto) {
@@ -83,6 +110,7 @@ public class AuthServiceImpl implements AuthService {
                 user.getEmail(),
                 user.getFirstName(),
                 password.getPassword())).start();
+
         log.info("User with email {} was registered.", user.getEmail());
         return registrationDto;
     }
@@ -90,9 +118,11 @@ public class AuthServiceImpl implements AuthService {
     private User findByEmailAndPassword(String email, String password) {
         User user = findByEmail(email);
         Password userPassword = passwordRepository.findByUserEmail(email);
+
         if (!passwordEncoder.matches(password, userPassword.getPassword())) {
             throw new IllegalArgumentException("Invalid username or password!");
         }
+
         return user;
     }
 
@@ -100,5 +130,14 @@ public class AuthServiceImpl implements AuthService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with email: " + email));
+    }
+
+    private String generateRandomPassword(int len) {
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
     }
 }

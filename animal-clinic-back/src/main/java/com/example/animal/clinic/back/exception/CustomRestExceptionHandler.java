@@ -19,6 +19,13 @@ public class CustomRestExceptionHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<ApiErrorResponse> handlePetNotFoundException(PetNotFoundException exception) {
+        ApiErrorResponse apiErrorResponse =
+                new ApiErrorResponse(HttpStatus.NOT_FOUND, exception.getLocalizedMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(apiErrorResponse.getStatus()).body(apiErrorResponse);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(IllegalArgumentException exception) {
         ApiErrorResponse apiErrorResponse =
                 new ApiErrorResponse(HttpStatus.CONFLICT, exception.getLocalizedMessage(), System.currentTimeMillis());

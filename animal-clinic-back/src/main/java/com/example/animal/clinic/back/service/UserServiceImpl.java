@@ -18,10 +18,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileDto getUserProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        log.info(email);
-        User user = userRepository.findByEmail(email).
-                orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email: " + email));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         return ProfileDto.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -31,5 +29,22 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(user.getPhoneNumber())
                 .email(user.getEmail())
                 .build();
+    }
+
+    @Override
+    public ProfileDto updateUserProfile(ProfileDto profileDto) {
+        User user = userRepository.findByEmail(profileDto.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + profileDto.getEmail()));
+
+        user.setFirstName(profileDto.getFirstName());
+        user.setLastName(profileDto.getLastName());
+        user.setPatronymic(profileDto.getPatronymic());
+        user.setGender(profileDto.getGender());
+        user.setBirthDate(profileDto.getBirthDate());
+        user.setPhoneNumber(profileDto.getPhoneNumber());
+
+        userRepository.save(user);
+        log.info("User profile with email {} was updated.", user.getEmail());
+        return profileDto;
     }
 }

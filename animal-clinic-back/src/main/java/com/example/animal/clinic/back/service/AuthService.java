@@ -11,4 +11,6 @@ public interface AuthService {
     RegistrationDto registerUser(RegistrationDto registrationDto);
 
     AuthResponse refreshTokens(RefreshTokenDto refreshTokenDto);
+
+    boolean recoverPassword(String email);
 }

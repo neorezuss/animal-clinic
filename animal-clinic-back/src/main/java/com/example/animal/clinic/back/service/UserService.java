@@ -4,4 +4,5 @@ import com.example.animal.clinic.back.dto.ProfileDto;
 
 public interface UserService {
     ProfileDto getUserProfile();
+    ProfileDto updateUserProfile(ProfileDto profileDto);
 }

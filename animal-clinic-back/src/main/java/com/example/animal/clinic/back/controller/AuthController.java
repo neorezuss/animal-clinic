@@ -41,4 +41,9 @@ public class AuthController {
     ) {
         return authService.refreshTokens(refreshTokenDto);
     }
+
+    @PostMapping("/recover-password")
+    public boolean refreshToken(String email) {
+        return authService.recoverPassword(email);
+    }
 }

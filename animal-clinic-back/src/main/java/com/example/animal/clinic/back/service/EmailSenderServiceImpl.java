@@ -30,4 +30,22 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         );
         mailSender.send(message);
     }
+
+    @Override
+    public void sendPasswordRecoveryEmail(String email, String password) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(email);
+        message.setSubject("Восстановление пароля в системе Vet Clinic");
+        message.setText(
+                "Если вы не оставляли запрос на восстановление пароля, просто проигнорируйте это письмо!\n\n" +
+                        "Используйте следующие данные для входа на сайт:\n\n" +
+                        "Email: " + email + "\n" +
+                        "Password: " + password + "\n\n" +
+                        "Пожалуйста, запомните их и держите в надежном месте.\n\n" +
+                        "С наилучшими пожеланиями,\n" +
+                        "Команда Vet Clinic."
+        );
+        mailSender.send(message);
+    }
 }
