@@ -5,6 +5,7 @@ import com.example.animal.clinic.back.entity.Pet;
 import com.example.animal.clinic.back.entity.User;
 import com.example.animal.clinic.back.exception.PetNotFoundException;
 import com.example.animal.clinic.back.repository.PetRepository;
+import com.example.animal.clinic.back.repository.PetTypeRepository;
 import com.example.animal.clinic.back.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,16 +19,17 @@ import org.springframework.stereotype.Service;
 public class PetServiceImpl implements PetService {
     private final UserRepository userRepository;
     private final PetRepository petRepository;
+    private final PetTypeRepository petTypeRepository;
 
     @Override
     public PetDto addPet(PetDto petDto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-
+        log.info(petDto.toString());
         Pet pet = Pet.builder()
                 .name(petDto.getName())
-                .petType(petDto.getPetType())
+                .petType(petTypeRepository.findByName(petDto.getPetType()))
                 .birthDate(petDto.getBirthDate())
                 .user(user)
                 .build();
@@ -49,7 +51,7 @@ public class PetServiceImpl implements PetService {
         }
 
         pet.setName(petDto.getName());
-        pet.setPetType(petDto.getPetType());
+        pet.setPetType(petTypeRepository.findByName(petDto.getPetType()));
         pet.setBirthDate(petDto.getBirthDate());
 
         petRepository.save(pet);

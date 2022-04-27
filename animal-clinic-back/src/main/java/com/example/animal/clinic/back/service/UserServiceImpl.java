@@ -1,6 +1,8 @@
 package com.example.animal.clinic.back.service;
 
+import com.example.animal.clinic.back.dto.PetDto;
 import com.example.animal.clinic.back.dto.ProfileDto;
+import com.example.animal.clinic.back.entity.Pet;
 import com.example.animal.clinic.back.entity.User;
 import com.example.animal.clinic.back.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,7 @@ public class UserServiceImpl implements UserService {
                 .birthDate(user.getBirthDate())
                 .phoneNumber(user.getPhoneNumber())
                 .email(user.getEmail())
+                .pets(user.getPets())
                 .build();
     }
 

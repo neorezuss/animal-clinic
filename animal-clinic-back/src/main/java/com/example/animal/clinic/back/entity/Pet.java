@@ -1,12 +1,16 @@
 package com.example.animal.clinic.back.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +23,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "pets")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +35,7 @@ public class Pet {
     private String name;
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name="pet_type_id")

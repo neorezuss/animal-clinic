@@ -1,5 +1,7 @@
 package com.example.animal.clinic.back.entity;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pet_types")
+@Data
 public class PetType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

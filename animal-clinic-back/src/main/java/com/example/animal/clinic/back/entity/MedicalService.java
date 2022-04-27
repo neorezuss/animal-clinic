@@ -1,6 +1,8 @@
 package com.example.animal.clinic.back.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -15,7 +17,8 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "medical_services")
-@Data
+@Setter
+@Getter
 public class MedicalService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
