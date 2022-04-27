@@ -26,6 +26,24 @@ databaseChangeLog:
   - include:
       file: changesets/create-table-medical-service-types.sql
       relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-pet-types.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-pets.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/fill-table-pet-types.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-specialists.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-medical-service-prices.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-medical-services.sql
+      relativeToChangelogFile: true
 
   - changeSet:
       id: 1

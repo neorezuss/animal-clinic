@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,7 @@ public class Specialist {
     private String firstName;
     private String lastName;
     private String patronymic;
+    @Enumerated(EnumType.STRING)
     private SpecialtyEnum specialty;
     @Basic
     private Date birthDate;
