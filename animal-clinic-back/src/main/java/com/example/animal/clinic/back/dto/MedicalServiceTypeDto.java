@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class MedicalServiceTypeDto {
     private String name;
-    private Byte[] image;
+    private String image;
     private String shortDescription;
     private String longDescription;
 }

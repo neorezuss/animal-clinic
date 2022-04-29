@@ -1,0 +1,17 @@
+<div class="container" *ngIf="isFetched">
+  <h3>Услуги клиники Vet Clinic</h3>
+  <hr>
+  <div class="input-group mb-3 rounded-pill p-1 search-div">
+    <input type="search" placeholder="Введите название услуги" class="form-control bg-none border-0">
+  </div>
+  <div class="container cards mx-2">
+    <div class="row">
+        <app-medical-service-card class="card mx-3 my-3 scale" style="width: 21rem; padding: 0px;"
+          *ngFor="let medicalService of medicalServices"
+          [medicalService]="medicalService"
+        ></app-medical-service-card>
+    </div>
+  </div>
+</div>
+
+

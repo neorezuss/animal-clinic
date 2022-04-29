@@ -19,9 +19,9 @@ public class MedicalServiceType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Byte[] image;
+    private String image;
     private String shortDescription;
     private String longDescription;
-    @OneToMany(mappedBy = "medicalServiceType", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "medicalServiceType"/*, fetch = FetchType.EAGER*/)
     private Set<MedicalServicePrice> medicalServicePrices;
 }

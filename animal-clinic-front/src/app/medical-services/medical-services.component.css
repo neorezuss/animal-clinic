@@ -1,0 +1,52 @@
+hr {
+  margin-bottom: 40px;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+.font-sized {
+  font-size: 24px;
+}
+
+.cards {
+  margin-top: 45px;
+}
+
+.search-div {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.scale {
+  transition: 0.3s; /* Время эффекта */
+}
+.scale:hover {
+  transform: scale(1.05); /* Увеличиваем масштаб */
+}
+
+input {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control-underlined {
+  border-width: 0;
+  border-bottom-width: 3px;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+
+
+.form-control::placeholder {
+  font-size: 0.95rem;
+  color: #aaa;
+  font-style: italic;
+}
