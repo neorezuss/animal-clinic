@@ -1,6 +1,5 @@
 package com.example.animal.clinic.back.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "medical_services")
+@Table(name = "medical_service_prices")
 @Getter
 @Setter
 public class MedicalServicePrice {
@@ -22,10 +21,10 @@ public class MedicalServicePrice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name="medical_service_type_id")
+    @JoinColumn(name = "medical_service_type_id")
     private MedicalServiceType medicalServiceType;
     @ManyToOne
-    @JoinColumn(name="pet_type_id")
+    @JoinColumn(name = "pet_type_id")
     private PetType petType;
     private BigDecimal price;
 }
