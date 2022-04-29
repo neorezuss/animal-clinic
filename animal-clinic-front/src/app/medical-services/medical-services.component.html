@@ -6,12 +6,15 @@
   </div>
   <div class="container cards mx-2">
     <div class="row">
-        <app-medical-service-card class="card mx-3 my-3 scale" style="width: 21rem; padding: 0px;"
+        <app-medical-service-card class="card cardd mx-3 my-3 scale"
           *ngFor="let medicalService of medicalServices"
           [medicalService]="medicalService"
         ></app-medical-service-card>
     </div>
   </div>
+</div>
+<div class="container" *ngIf="!isFetched">
+  
 </div>
 
 

@@ -10,6 +10,11 @@ h3 {
   font-size: 24px;
 }
 
+.cardd{
+  width: 21rem;
+  padding: 0px;
+}
+
 .cards {
   margin-top: 45px;
 }
@@ -44,9 +49,3 @@ input {
 }
 
 
-
-.form-control::placeholder {
-  font-size: 0.95rem;
-  color: #aaa;
-  font-style: italic;
-}
