@@ -3,6 +3,7 @@ package com.example.animal.clinic.back.service;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
+import com.example.animal.clinic.back.dto.ChangePasswordDto;
 import com.example.animal.clinic.back.entity.Password;
 import com.example.animal.clinic.back.entity.Role;
 import com.example.animal.clinic.back.entity.RoleEnum;
@@ -65,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean recoverPassword(String email) {
+    public boolean resetPassword(String email) {
         if (!userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("User with email " + email + " doesnt exist.");
         }
@@ -80,7 +81,25 @@ public class AuthServiceImpl implements AuthService {
                 email,
                 newPassword)).start();
 
-        log.info("User with email {} changed password.", email);
+        log.info("User with email {} reset password.", email);
+        return true;
+    }
+
+    @Override
+    public boolean changePassword(ChangePasswordDto changePasswordDto) {
+        User user = findByEmailAndPassword(changePasswordDto.getEmail(), changePasswordDto.getOldPassword());
+
+        Password password = passwordRepository.findByUserEmail(changePasswordDto.getEmail());
+
+        password.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        passwordRepository.save(password);
+
+        new Thread(() -> emailSenderService.sendPasswordRecoveryEmail(
+                changePasswordDto.getEmail(),
+                changePasswordDto.getNewPassword())).start();
+
+        log.info("User with email {} changed password.", changePasswordDto.getEmail());
+
         return true;
     }
 
@@ -128,16 +147,17 @@ public class AuthServiceImpl implements AuthService {
 
     private User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
     private String generateRandomPassword(int len) {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(len);
+
         for (int i = 0; i < len; i++)
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
+
         return sb.toString();
     }
 }

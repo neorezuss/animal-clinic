@@ -3,6 +3,7 @@ package com.example.animal.clinic.back.controller;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
+import com.example.animal.clinic.back.dto.ChangePasswordDto;
 import com.example.animal.clinic.back.security.AuthResponse;
 import com.example.animal.clinic.back.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,17 @@ public class AuthController {
         return authService.refreshTokens(refreshTokenDto);
     }
 
-    @PostMapping("/recover-password")
-    public boolean refreshToken(@RequestBody String email) {
-        return authService.recoverPassword(email);
+    @PostMapping("/reset-password")
+    public boolean resetPassword(
+            @RequestBody String email
+    ) {
+        return authService.resetPassword(email);
+    }
+
+    @PostMapping("/change-password")
+    public boolean changePassword(
+            @RequestBody ChangePasswordDto changePasswordDto
+    ) {
+        return authService.changePassword(changePasswordDto);
     }
 }
