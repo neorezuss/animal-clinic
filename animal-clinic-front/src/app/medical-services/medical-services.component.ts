@@ -3,6 +3,7 @@ import { MedicalServiceService } from "../services/medical-service.service";
 import { MedicalService } from "../classes/medical-service";
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { PetType } from "../classes/pet-type-enum";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-medical-services',
@@ -18,7 +19,9 @@ export class MedicalServicesComponent implements OnInit {
   @ViewChild('searchBar', {static: true}) search: ElementRef;
   @ViewChild('modal', {static: true}) modal: ElementRef;
 
-  constructor(private medicalServiceService: MedicalServiceService, private modalService: NgbModal) { }
+  constructor(private medicalServiceService: MedicalServiceService,
+              private modalService: NgbModal,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.medicalServiceService.findAll().subscribe(data => {

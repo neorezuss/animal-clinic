@@ -8,9 +8,9 @@
   <div class="container cards mx-2" *ngIf="isFetched">
     <div class="row">
       <app-medical-service-card class="card cardd mx-3 my-3 scale"
-                                *ngFor="let medicalService of filteredMedicalServices"
-                                [medicalService]="medicalService"
-                                (click)="onCardClick(content)"
+        *ngFor="let medicalService of filteredMedicalServices"
+        [medicalService]="medicalService"
+        (click)="onCardClick(content)"
       >
         <ng-template #content let-modal>
           <div class="modal-header">
@@ -29,8 +29,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <!--<button type="button" class="btn btn-light">Записаться</button>-->
-            <div>
+            <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-light">Записаться</button>
+            <div *ngIf="!authService.isLoggedIn">
               <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                   <path
@@ -52,8 +52,7 @@
                 <div>Для записи на услугу нужно войти или зарегистрироваться!</div>
               </div>
               <button type="button" class="btn btn-outline-success" style="height: 55px; width: 110px;">Войти</button>
-              <button type="button" class="btn btn-outline-danger" style="height: 55px; width: 130px;">Регистрация
-              </button>
+              <button type="button" class="btn btn-outline-danger" style="height: 55px; width: 130px;">Регистрация</button>
             </div>
           </div>
         </ng-template>
