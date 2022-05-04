@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MedicalService} from "../../classes/medical-service";
+declare var $: any;
 
 @Component({
   selector: 'app-medical-service-card',
@@ -10,6 +11,7 @@ export class MedicalServiceCardComponent implements OnInit {
 
   @Input('medicalService') medicalService: MedicalService;
   @ViewChild('image', {static: true}) image: ElementRef;
+  @ViewChild('modal', {static: true}) modal: ElementRef;
 
 
   constructor() {}

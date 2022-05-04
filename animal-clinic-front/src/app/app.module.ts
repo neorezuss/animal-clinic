@@ -13,7 +13,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,14 @@ import {HttpClientModule} from "@angular/common/http";
     FooterComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
