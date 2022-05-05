@@ -15,6 +15,7 @@ export class MedicalServicesComponent implements OnInit {
   medicalServices: MedicalService[];
   filteredMedicalServices: MedicalService[];
   isFetched: boolean = false;
+  isLoggedIn: boolean;
   petType: any = PetType
   @ViewChild('searchBar', {static: true}) search: ElementRef;
   @ViewChild('modal', {static: true}) modal: ElementRef;
@@ -24,6 +25,7 @@ export class MedicalServicesComponent implements OnInit {
               public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn()
     this.medicalServiceService.findAll().subscribe(data => {
       this.medicalServices = data;
       this.filteredMedicalServices = this.medicalServices

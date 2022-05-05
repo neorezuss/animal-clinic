@@ -29,8 +29,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-light">Записаться</button>
-            <div *ngIf="!authService.isLoggedIn">
+            <button *ngIf="isLoggedIn" type="button" class="btn btn-light" (click)="modal.dismiss('Cross click')">Записаться</button>
+            <div *ngIf="!isLoggedIn" class="d-flex flex-row">
               <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                   <path
@@ -51,8 +51,8 @@
                 </svg>
                 <div>Для записи на услугу нужно войти или зарегистрироваться!</div>
               </div>
-              <button type="button" class="btn btn-outline-success" style="height: 55px; width: 110px;">Войти</button>
-              <button type="button" class="btn btn-outline-danger" style="height: 55px; width: 130px;">Регистрация</button>
+              <button type="button" class="btn btn-outline-success login-button" routerLink="/login" (click)="modal.dismiss('Cross click')">Войти</button>
+              <button type="button" class="btn btn-outline-danger register-button" routerLink="/register" (click)="modal.dismiss('Cross click')">Регистрация</button>
             </div>
           </div>
         </ng-template>

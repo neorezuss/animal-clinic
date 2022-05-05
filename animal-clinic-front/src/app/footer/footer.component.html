@@ -1,13 +1,21 @@
-<footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2); margin-top: 25px;">
-  <div class="container p-4 pb-0">
-    <section class="">
+<footer  class="align-items-end">
+  <div class="container p-2">
+    <section *ngIf="!isLoggedIn" style="height: 36px;">
       <p class="d-flex justify-content-center align-items-center">
         <span class="me-3">Зарегистрируйтесь бесплатно</span>
-        <button type="button" class="btn btn-outline-light btn-rounded">
+        <button routerLink="/register" type="button" class="btn btn-outline-light btn-rounded">
           Регистрация
         </button>
       </p>
     </section>
+    <div *ngIf="isLoggedIn"  class="d-flex flex-row justify-content-center" style="height: 36px;">
+      <ul class="nav">
+        <li role="presentation"><a routerLink="/home" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">Главная</a></li>
+        <li role="presentation"><a routerLink="/medical-services" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">Услуги</a></li>
+        <li role="presentation"><a routerLink="/contacts" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">Контакты</a></li>
+        <li role="presentation"><a routerLink="/about-us" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">О нас</a></li>
+      </ul>
+    </div>
   </div>
 
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">

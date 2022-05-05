@@ -5,3 +5,17 @@
 .font-sized {
   font-size: 22px;
 }
+
+app-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+button:focus {
+  outline: none;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+

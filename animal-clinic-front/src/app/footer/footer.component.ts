@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnChanges {
 
-  constructor() { }
+  isLoggedIn: boolean;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isLoggedIn = this.authService.isLoggedIn()
   }
 
 }

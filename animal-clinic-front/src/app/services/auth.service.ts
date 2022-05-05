@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {AuthResponse} from "../classes/auth-response";
+import { HttpClient } from "@angular/common/http";
+import { AuthResponse } from "../classes/auth-response";
+import { Registration } from "../classes/registration";
+import { Login } from "../classes/login";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string) {
-    return this.http.post<AuthResponse>(this.authControllerUrl + '/login', { email, password });
-  }
-
   isLoggedIn(): boolean {
     return localStorage.getItem('accessToken') !== null
       && localStorage.getItem('refreshToken') !== null
   }
 
+  login(login: Login) {
+    return this.http.post<AuthResponse>(this.authControllerUrl + '/login', login);
+  }
 
+  register(registration: Registration) {
+    return this.http.post<Registration>(this.authControllerUrl + '/register', registration);
+  }
 }

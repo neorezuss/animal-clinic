@@ -2,23 +2,108 @@
   <h3>Регистрация в системе Vet Clinic</h3>
   <hr>
   <div class="row">
-    <div class="col-4 offset-4">
-      <form>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-4 offset-4 border border-3 border-dark rounded-3">
+      <div class="form-text text-danger mb-3">Электронная почта или пароль указаны не верно!</div>
+
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Фамилия</label>
+        <input type="text" class="form-control" id="lastName" ngModel name="lastName" #lastName='ngModel' required
+               minlength="2">
+        <div class="form-text text-danger" *ngIf="!lastName.valid && lastName.touched">
+          Длина фамилии не может быть меньше 2 символов!
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+
+      <div class="mb-3">
+        <label for="firstName" class="form-label">Имя</label>
+        <input type="text" class="form-control" id="firstName" ngModel name="firstName" #firstName='ngModel' required
+               minlength="2">
+        <div class="form-text text-danger" *ngIf="!firstName.valid && firstName.touched">
+          Длина имени не может быть меньше 2 символов!
         </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+
+      <div class="mb-3">
+        <label for="patronymic" class="form-label">Отчество</label>
+        <input type="text" class="form-control" id="patronymic" ngModel name="patronymic" #patronymic='ngModel' required
+               minlength="2">
+        <div class="form-text text-danger" *ngIf="!patronymic.valid && patronymic.touched">
+          Длина отчества не может быть меньше 2 символов!
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="gender" class="form-label">Пол</label>
+        <div class="d-flex flex-row" id="gender">
+          <div class="form-check m-3">
+            <input class="form-check-input" type="radio" id="flexRadioDefault1" (change)="onRadioChange()"
+                   ngModel name="gender" #gender='ngModel' value="MALE" checked>
+            <label class="form-check-label" for="flexRadioDefault1">
+              М
+            </label>
+          </div>
+          <div class="form-check  m-3">
+            <input class="form-check-input" type="radio" id="flexRadioDefault2" (change)="onRadioChange()"
+                   ngModel name="gender" #gender='ngModel' value="FEMALE">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Ж
+            </label>
+          </div>
+        </div>
+        <div class="form-text text-danger" *ngIf="genderNotSelected">
+          Пол не выбран!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="birthDate" class="form-label">Дата рождения</label>
+        <input type="date" class="form-control" id="birthDate" ngModel name="birthDate" #birthDate='ngModel' required>
+        <div class="form-text text-danger" *ngIf="!birthDate.valid && birthDate.touched">
+          Дата рождения не заполнена!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Номер телефона</label>
+        <input type="text" class="form-control" id="phoneNumber" ngModel name="phoneNumber" #phoneNumber='ngModel' required
+               pattern="(\+375)(25|29|44)[0-9]{7}" placeholder="+375291111111">
+        <div class="form-text text-danger" *ngIf="!phoneNumber.valid && phoneNumber.touched">
+          Номер телефона должен быть в формате +375(25|29|44)XXXXXXX!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Электронная почта</label>
+        <input type="email" class="form-control" id="email" ngModel name="email" #email='ngModel' required email>
+        <div class="form-text text-danger" *ngIf="!email.valid && email.touched">Не верный формат электронной почты!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="password" (input)="onInput()" ngModel name="password"
+               #password='ngModel' required minlength="8">
+        <div class="form-text text-danger" *ngIf="!password.valid && password.touched">
+          Длина пароля не может быть менее 8 символов!
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="repeatPassword" class="form-label">Повтор пароля</label>
+        <input type="password" class="form-control" id="repeatPassword" (input)="onInput()"
+               [ngClass]="{ invalid: password.value != repeatPassword.value && repeatPassword.touched }"
+               ngModel name="repeatPassword" #repeatPassword='ngModel'>
+        <div class="form-text text-danger" *ngIf="password.value != repeatPassword.value && repeatPassword.touched">
+          Пароли не совпадают!
+        </div>
+      </div>
+
+      <div class="text-end" style="margin-top: 45px;">
+        <button type="button" class="btn btn-danger" routerLink="/login">Войти</button>
+        <button type="submit" class="btn btn-success" style="margin-left: 2px;">
+          Зарегистрироваться
+        </button>
+      </div>
+    </form>
   </div>
 </div>
