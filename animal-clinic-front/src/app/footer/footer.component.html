@@ -1,6 +1,6 @@
 <footer  class="align-items-end">
   <div class="container p-2">
-    <section *ngIf="!isLoggedIn" style="height: 36px;">
+    <section *ngIf="!authService.isLoggedIn" style="height: 36px;">
       <p class="d-flex justify-content-center align-items-center">
         <span class="me-3">Зарегистрируйтесь бесплатно</span>
         <button routerLink="/register" type="button" class="btn btn-outline-light btn-rounded">
@@ -8,7 +8,7 @@
         </button>
       </p>
     </section>
-    <div *ngIf="isLoggedIn"  class="d-flex flex-row justify-content-center" style="height: 36px;">
+    <div *ngIf="authService.isLoggedIn"  class="d-flex flex-row justify-content-center" style="height: 36px;">
       <ul class="nav">
         <li role="presentation"><a routerLink="/home" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">Главная</a></li>
         <li role="presentation"><a routerLink="/medical-services" routerLinkActive="activeClass" class="nav-link px-2 text-white mx-2">Услуги</a></li>

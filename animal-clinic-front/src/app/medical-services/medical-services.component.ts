@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MedicalServiceService } from "../services/medical-service.service";
 import { MedicalService } from "../classes/medical-service";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PetType } from "../classes/pet-type-enum";
-import {AuthService} from "../services/auth.service";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-medical-services',
@@ -15,8 +15,7 @@ export class MedicalServicesComponent implements OnInit {
   medicalServices: MedicalService[];
   filteredMedicalServices: MedicalService[];
   isFetched: boolean = false;
-  isLoggedIn: boolean;
-  petType: any = PetType
+  petType: any = PetType;
   @ViewChild('searchBar', {static: true}) search: ElementRef;
   @ViewChild('modal', {static: true}) modal: ElementRef;
 
@@ -25,7 +24,6 @@ export class MedicalServicesComponent implements OnInit {
               public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn()
     this.medicalServiceService.findAll().subscribe(data => {
       this.medicalServices = data;
       this.filteredMedicalServices = this.medicalServices

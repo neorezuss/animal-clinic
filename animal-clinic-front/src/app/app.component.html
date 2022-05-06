@@ -13,15 +13,15 @@
       </ul>
 
       <div class="text-end">
-        <div *ngIf="!isLoggedIn">
+        <div *ngIf="!authService.isLoggedIn">
           <button routerLink="/login" type="button" class="btn btn-outline-light me-2">Войти</button>
           <button routerLink="/register" type="button" class="btn btn-warning">Регистрация</button>
         </div>
-        <div *ngIf="isLoggedIn">
+        <div *ngIf="authService.isLoggedIn">
           <button type="button" class="btn btn-outline-success me-2">
             <img src="../assets/image/user.png" style="width: 15px; height: 15px; margin-right: 10px;">Профиль
           </button>
-          <button type="button" class="btn btn-outline-danger">Выйти</button>
+          <button type="button" class="btn btn-outline-danger" (click)="onLogOut()">Выйти</button>
         </div>
       </div>
     </div>

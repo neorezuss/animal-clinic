@@ -6,14 +6,8 @@ import {AuthService} from "../services/auth.service";
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnChanges {
+export class FooterComponent {
 
-  isLoggedIn: boolean;
-
-  constructor(private authService: AuthService) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.isLoggedIn = this.authService.isLoggedIn()
-  }
+  constructor(public authService: AuthService) { }
 
 }

@@ -6,14 +6,13 @@ import {AuthService} from "./services/auth.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'animal-clinic-front';
-  isLoggedIn: boolean;
 
   constructor(public authService: AuthService) {
   }
 
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn()
+  onLogOut() {
+    this.authService.loginOut()
   }
 }

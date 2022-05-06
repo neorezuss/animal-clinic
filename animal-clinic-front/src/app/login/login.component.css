@@ -24,3 +24,7 @@ input:focus {
 .password-reset-link {
   margin-right: 20px;
 }
+
+.invalid {
+  border: 2px solid red;
+}

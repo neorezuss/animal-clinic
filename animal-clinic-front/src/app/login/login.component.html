@@ -3,11 +3,15 @@
   <hr>
   <div class="row">
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-4 offset-4 border border-3 border-dark rounded-3">
-      <div class="form-text text-danger mb-3">Электронная почта или пароль указаны не верно!</div>
+
+      <div *ngIf="!emailAndPasswordAreValid" class="form-text text-danger mb-3">
+        Электронная почта или пароль указаны не верно!
+      </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Электронная почта</label>
-        <input type="email" class="form-control" id="email" ngModel name="email" #email='ngModel' required email>
+        <input type="email" class="form-control" id="email" ngModel name="email" #email='ngModel' required email
+               [ngClass]="{ invalid: !emailAndPasswordAreValid }" (input)="emailAndPasswordAreValid = true">
         <div class="form-text text-danger" *ngIf="!email.valid && email.touched">
           Не верный формат электронной почты!
         </div>
@@ -16,7 +20,7 @@
       <div class="mb-3">
         <label for="password" class="form-label">Пароль</label>
         <input type="password" class="form-control" id="password" ngModel name="password" #password='ngModel' required
-               minlength="8">
+               minlength="8" [ngClass]="{ invalid: !emailAndPasswordAreValid }" (input)="emailAndPasswordAreValid = true">
         <div class="form-text text-danger" *ngIf="!password.valid && password.touched">
           Длина пароля не может быть менее 8 символов!
         </div>
