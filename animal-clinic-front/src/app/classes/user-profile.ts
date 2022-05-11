@@ -8,5 +8,5 @@ export class UserProfile {
   birthDate: string;
   phoneNumber: string;
   email: string;
-  pets: Pet[];
+  pets: Pet[] | null;
 }

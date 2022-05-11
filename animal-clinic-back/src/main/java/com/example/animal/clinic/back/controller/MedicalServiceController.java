@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/medical-services")
-@CrossOrigin
 @RequiredArgsConstructor
 public class MedicalServiceController {
     private final MedicalServiceService medicalServiceService;

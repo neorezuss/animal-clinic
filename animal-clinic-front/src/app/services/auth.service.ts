@@ -40,8 +40,8 @@ export class AuthService {
     return this.http.post<Registration>(this.authControllerUrl + '/register', registration)
   }
 
-  refreshTokens(): void{
-    this.http.post<AuthResponse>(this.authControllerUrl + '/refresh-token',
+  refreshTokens(): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.authControllerUrl + '/refresh-token',
       { refreshToken:   localStorage.getItem('refreshToken') })
       .pipe(
         catchError(err => {
@@ -50,11 +50,6 @@ export class AuthService {
           return throwError(err)
         })
       )
-      .subscribe(data => {
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-        console.log('Tokens refreshed')
-      })
   }
 
   resetPassword(email: { email: string }): Observable<boolean> {

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -13,9 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
+@Slf4j
 public class JwtProvider {
-    private final HandlerExceptionResolver handlerExceptionResolver;
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Value("${jwt.access.token.expired}")
@@ -40,6 +40,7 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
+            log.info("Token is not valid!");
             return false;
         }
     }
