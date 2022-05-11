@@ -8,6 +8,9 @@ import { AboutUsComponent } from "./about-us/about-us.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
+import {UserProfileComponent} from "./profile/user-profile/user-profile.component";
+import {MakeAppointmentsComponent} from "./profile/make-appointments/make-appointments.component";
+import {AppointmentsHistoryComponent} from "./profile/appointments-history/appointments-history.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,7 +20,11 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, children: [
+      { path: 'user-profile', component: UserProfileComponent },
+      { path: 'make-appointments', component: MakeAppointmentsComponent },
+      { path: 'appointments-history', component: AppointmentsHistoryComponent },
+    ] },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'not-found' },
 ];

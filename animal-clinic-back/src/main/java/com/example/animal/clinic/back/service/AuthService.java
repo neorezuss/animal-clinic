@@ -1,5 +1,6 @@
 package com.example.animal.clinic.back.service;
 
+import com.example.animal.clinic.back.dto.EmailDto;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
@@ -13,6 +14,6 @@ public interface AuthService {
 
     AuthResponse refreshTokens(RefreshTokenDto refreshTokenDto);
 
-    boolean resetPassword(String email);
+    boolean resetPassword(EmailDto emailDto);
     boolean changePassword(ChangePasswordDto changePasswordDto);
 }

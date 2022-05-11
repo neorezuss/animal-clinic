@@ -2,7 +2,7 @@
   <h3>Вход в систему Vet Clinic</h3>
   <hr>
   <div class="row">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-4 offset-4 border border-3 border-dark rounded-3">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="login-form col-4 offset-4 border border-3 border-dark rounded-3">
 
       <div *ngIf="!emailAndPasswordAreValid" class="form-text text-danger mb-3">
         Электронная почта или пароль указаны не верно!
@@ -27,7 +27,9 @@
       </div>
 
       <div class="text-end" style="margin-top: 45px;">
-        <a href="#" class="link-secondary password-reset-link">Забыли пароль?</a>
+        <a href="javascript:void(0)" class="link-secondary password-reset-link" (click)="openResetPasswordModal(resetPasswordModal)">
+          Забыли пароль?
+        </a>
         <button type="button" class="btn btn-danger" style="margin-right: 2px;" routerLink="/register">
           Регистрация
         </button>
@@ -36,3 +38,38 @@
     </form>
   </div>
 </div>
+
+
+<ng-template let-modal #resetPasswordModal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="margin-left: 10px">Восстановление пароля</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form (ngSubmit)="onPasswordResetSubmit(eRF)" #eRF="ngForm" class="col-12">
+        <p style="text-align: justify; margin-bottom: 25px;">
+          Для вашей учетной записи будет сгенерирован новый пароль.
+          На ваш адрес электронной почты будет отправлено письмо с данными для входа в систему.
+          В дальнейшем вы можете изменить пароль в своем профиле.
+        </p>
+        <div class="mb-3">
+          <label for="passwordResetEmail" class="form-label">Электронная почта</label>
+          <input type="email" class="form-control" id="passwordResetEmail" ngModel name="email" #email='ngModel' required email
+                 [ngClass]="{ invalid: !emailExists }" (input)="emailExists = true">
+          <div class="form-text text-danger" *ngIf="!email.valid && email.touched">
+            Не верный формат электронной почты!
+          </div>
+          <div *ngIf="!emailExists" class="form-text text-danger mb-3">
+            Электронная почта указана не верно!
+          </div>
+        </div>
+
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">Отмена</button>
+          <button type="submit" class="btn btn-success" style="margin-left: 2px;">Восстановить пароль</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

@@ -36,5 +36,6 @@ public class MedicalService {
     private Date date;
     @Basic
     private Time time;
+    private Integer officeNumber;
     private String result;
 }

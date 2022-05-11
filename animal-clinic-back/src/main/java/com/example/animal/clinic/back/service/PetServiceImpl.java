@@ -26,7 +26,7 @@ public class PetServiceImpl implements PetService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-        log.info(petDto.toString());
+
         Pet pet = Pet.builder()
                 .name(petDto.getName())
                 .petType(petTypeRepository.findByName(petDto.getPetType()))

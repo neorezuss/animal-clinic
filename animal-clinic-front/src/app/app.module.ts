@@ -13,13 +13,17 @@ import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { UserProfileComponent } from './profile/user-profile/user-profile.component';
+import { MakeAppointmentsComponent } from './profile/make-appointments/make-appointments.component';
+import { AppointmentsHistoryComponent } from './profile/appointments-history/appointments-history.component';
+import {AuthInterceptor} from "./interceptors/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-
+    UserProfileComponent,
+    MakeAppointmentsComponent,
+    AppointmentsHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     FormsModule,
     MatDatepickerModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

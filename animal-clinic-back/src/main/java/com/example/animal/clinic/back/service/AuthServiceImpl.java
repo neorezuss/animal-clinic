@@ -1,5 +1,6 @@
 package com.example.animal.clinic.back.service;
 
+import com.example.animal.clinic.back.dto.EmailDto;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
@@ -66,22 +67,22 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean resetPassword(String email) {
-        if (!userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("User with email " + email + " doesnt exist.");
+    public boolean resetPassword(EmailDto emailDto) {
+        if (!userRepository.existsByEmail(emailDto.getEmail())) {
+            throw new IllegalArgumentException("User with email " + emailDto.getEmail() + " doesnt exist.");
         }
 
         String newPassword = generateRandomPassword(16);
 
-        Password password = passwordRepository.findByUserEmail(email);
+        Password password = passwordRepository.findByUserEmail(emailDto.getEmail());
         password.setPassword(passwordEncoder.encode(newPassword));
         passwordRepository.save(password);
 
         new Thread(() -> emailSenderService.sendPasswordRecoveryEmail(
-                email,
+                emailDto.getEmail(),
                 newPassword)).start();
 
-        log.info("User with email {} reset password.", email);
+        log.info("User with email {} reset password.", emailDto.getEmail());
         return true;
     }
 
@@ -126,9 +127,9 @@ public class AuthServiceImpl implements AuthService {
         passwordRepository.save(password);
 
         new Thread(() -> emailSenderService.sendRegistrationEmail(
-                user.getEmail(),
-                user.getFirstName(),
-                password.getPassword())).start();
+                registrationDto.getEmail(),
+                registrationDto.getFirstName(),
+                registrationDto.getPassword())).start();
 
         log.info("User with email {} was registered.", user.getEmail());
         return registrationDto;

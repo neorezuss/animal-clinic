@@ -1,5 +1,6 @@
 package com.example.animal.clinic.back.controller;
 
+import com.example.animal.clinic.back.dto.EmailDto;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
@@ -45,9 +46,9 @@ public class AuthController {
 
     @PostMapping("/reset-password")
     public boolean resetPassword(
-            @RequestBody String email
-    ) {
-        return authService.resetPassword(email);
+            @RequestBody EmailDto emailDto
+            ) {
+        return authService.resetPassword(emailDto);
     }
 
     @PostMapping("/change-password")

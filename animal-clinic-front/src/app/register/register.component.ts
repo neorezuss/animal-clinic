@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -18,10 +18,10 @@ export class RegisterComponent {
   @ViewChild('repeatPassword', {static: true}) repeatPassword: NgModel;
   @ViewChild('gender', {static: true}) gender: NgModel;
 
-  constructor(private authService: AuthService, private modalService: NgbModal, private router: Router) {
+  constructor(private authService: AuthService, private modalService: NgbModal) {
   }
 
-  onSubmit(form: NgForm, content: any) {
+  onSubmit(form: NgForm, modal: any) {
     if (this.gender.value === '') {
       this.genderNotSelected = true
     }
@@ -40,7 +40,7 @@ export class RegisterComponent {
       password: form.form.value.password,
     }).subscribe(
       data => {
-        this.modalService.open(content);
+        this.modalService.open(modal);
       },
       error => {
         this.emailIsAvailable = false
