@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {PetType} from "../../../../classes/pet-type-enum";
 import {Pet} from "../../../../classes/pet";
-import {Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PetService} from "../../../../services/pet.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-pet-card',
@@ -37,7 +37,7 @@ export class PetCardComponent {
     this.modalService.open(modal);
   }
 
-  deletePet() {
+  onDeletePetModalSubmit() {
     this.petService.deletePet(this.pet.id)
       .subscribe(
         data => {
@@ -46,7 +46,21 @@ export class PetCardComponent {
         });
   }
 
-  updatePet() {
+  onUpdatePetModalSubmit(form: NgForm) {
+    for (let key in form.form.controls) {
+      form.form.controls[key].markAsTouched()
+    }
 
+    if (!form.valid)
+      return;
+
+    this.petService.updatePet(form.form.value)
+      .subscribe(
+        data => {
+          this.modalService.dismissAll()
+          const index: any = this.pets?.findIndex(pet => pet.id == form.form.value.id)
+          this.pets?.splice(index, 1, form.form.value)
+          this.pets?.sort((p1, p2) => p1.name > p2.name ? 1 : -1)
+        });
   }
 }

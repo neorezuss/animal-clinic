@@ -39,8 +39,8 @@ export class PetsInfoComponent {
       .subscribe(
         data => {
           this.modalService.dismissAll()
-          console.log(data)
-          this.pets?.splice(this.pets?.findIndex(pet => pet.name > form.form.value.name), 0, data)
+          const insertIndex: any = this.pets?.findIndex(pet => pet.name > form.form.value.name)
+          this.pets?.splice(insertIndex < 0 ? this.pets?.length : insertIndex, 0, data)
         });
   }
 }

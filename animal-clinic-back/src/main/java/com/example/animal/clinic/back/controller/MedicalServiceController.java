@@ -1,6 +1,7 @@
 package com.example.animal.clinic.back.controller;
 
 import com.example.animal.clinic.back.dto.MedicalServiceTypeDto;
+import com.example.animal.clinic.back.entity.MedicalService;
 import com.example.animal.clinic.back.service.MedicalServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,11 @@ public class MedicalServiceController {
 
     @GetMapping
     public List<MedicalServiceTypeDto> getMedicalServiceTypes() {
+        return medicalServiceService.getMedicalServiceTypes();
+    }
+
+    @GetMapping
+    public List<MedicalService> getMedicalServiceAppointmentsByType() {
         return medicalServiceService.getMedicalServiceTypes();
     }
 }

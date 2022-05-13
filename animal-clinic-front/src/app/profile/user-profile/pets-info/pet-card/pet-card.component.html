@@ -36,7 +36,7 @@
           <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">
             Отмена
           </button>
-          <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" (click)="deletePet()">Удалить</button>
+          <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" (click)="onDeletePetModalSubmit()">Удалить</button>
         </div>
       </div>
     </div>
@@ -49,18 +49,52 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <div class="container-fluid">
-      <div class="col-12">
-        <p style="text-align: justify;">
-          Вы действительно хотите удалить питомца <strong>{{ pet.name }}</strong>?
-        </p>
-        <div class="text-end" style="margin-top: 25px;">
-          <button type="button" class="btn btn-outline-danger">Удалить</button>
-          <button type="button" class="btn btn-outline-secondary"  style="margin-left: 2px;" (click)="modal.dismiss('Cross click')">
-            Отмена
-          </button>
+    <div class="container">
+      <form (ngSubmit)="onUpdatePetModalSubmit(updatePet)" #updatePet="ngForm" class="col-12">
+
+        <input type="hidden" class="form-control" id="id" ngModel="{{ pet.id }}" name="id" #id='ngModel'>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Имя питомца</label>
+          <input type="text" class="form-control" id="name" ngModel="{{ pet.name }}" name="name" #name='ngModel' required minlength="2">
+          <div class="form-text text-danger" *ngIf="!name.valid && name.touched">
+            Длина имени питомца не может быть меньше 2 символов!
+          </div>
         </div>
-      </div>
+
+        <div class="mb-3">
+          <label for="petType" class="form-label">Тип питомца</label>
+          <select class="form-select" id="petType" ngModel="{{ pet.petType }}" name="petType" #petType='ngModel' required>
+            <option value="CAT">Кот</option>
+            <option value="DOG">Собака</option>
+            <option value="BIRD">Птица</option>
+          </select>
+          <div class="form-text text-danger" *ngIf="!petType.valid && petType.touched">
+            Порода питомца не заполнена!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="breed" class="form-label">Порода питомца</label>
+          <input type="text" class="form-control" id="breed" ngModel="{{ pet.breed }}" name="breed" #breed='ngModel' required minlength="2">
+          <div class="form-text text-danger" *ngIf="!breed.valid && breed.touched">
+            Длина названия породы питомца не может быть меньше 2 символов!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="birthDate" class="form-label">Дата рождения питомца</label>
+          <input type="date" class="form-control" id="birthDate" ngModel="{{ pet.birthDate }}" name="birthDate" #birthDate='ngModel' required>
+          <div class="form-text text-danger" *ngIf="!birthDate.valid && birthDate.touched">
+            Дата рождения не заполнена!
+          </div>
+        </div>
+
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Отмена</button>
+          <button type="submit" class="btn btn-outline-success" style="margin-left: 2px;">Изменить питомца</button>
+        </div>
+      </form>
     </div>
   </div>
 </ng-template>
