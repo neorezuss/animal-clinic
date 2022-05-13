@@ -3,7 +3,6 @@ package com.example.animal.clinic.back.controller;
 import com.example.animal.clinic.back.dto.MedicalServiceTypeDto;
 import com.example.animal.clinic.back.service.MedicalServiceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

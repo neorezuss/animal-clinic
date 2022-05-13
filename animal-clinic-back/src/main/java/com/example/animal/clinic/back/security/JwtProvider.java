@@ -40,7 +40,6 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
-            log.info("Token is not valid!");
             return false;
         }
     }

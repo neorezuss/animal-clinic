@@ -95,9 +95,12 @@
         <label for="repeatPassword" class="form-label">Повтор пароля</label>
         <input type="password" class="form-control" id="repeatPassword" (input)="onInput()"
                [ngClass]="{ invalid: password.value != repeatPassword.value && repeatPassword.touched }"
-               ngModel name="repeatPassword" #repeatPassword='ngModel'>
+               ngModel name="repeatPassword" #repeatPassword='ngModel' required minlength="8">
         <div class="form-text text-danger" *ngIf="password.value != repeatPassword.value && repeatPassword.touched">
           Пароли не совпадают!
+        </div>
+        <div class="form-text text-danger" *ngIf="!password.valid && password.touched">
+          Длина пароля не может быть менее 8 символов!
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Router} from "@angular/router";
+import {catchError, throwError} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -22,6 +22,10 @@ export class RegisterComponent {
   }
 
   onSubmit(form: NgForm, modal: any) {
+    for (let key in form.form.controls) {
+      form.form.controls[key].markAsTouched()
+    }
+
     if (this.gender.value === '') {
       this.genderNotSelected = true
     }
@@ -38,13 +42,16 @@ export class RegisterComponent {
       phoneNumber: form.form.value.phoneNumber,
       email: form.form.value.email,
       password: form.form.value.password,
-    }).subscribe(
-      data => {
-        this.modalService.open(modal);
-      },
-      error => {
-        this.emailIsAvailable = false
-      });
+    })
+      .pipe(
+        catchError(err => {
+          this.emailIsAvailable = false
+          return throwError(err)
+        }))
+      .subscribe(
+        data => {
+          this.modalService.open(modal);
+        });
   }
 
   onRadioChange() {

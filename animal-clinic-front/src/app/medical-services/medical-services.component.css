@@ -37,10 +37,10 @@ h3 {
 }
 
 .scale {
-  transition: 0.3s; /* Время эффекта */
+  transition: 0.3s;
 }
 .scale:hover {
-  transform: scale(1.05); /* Увеличиваем масштаб */
+  transform: scale(1.05);
 }
 
 input {

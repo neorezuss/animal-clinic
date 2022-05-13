@@ -1,8 +1,7 @@
-import {PetType} from "./pet-type-enum";
-
 export class Pet {
   id: number;
   name: string;
-  petType: PetType;
+  petType: string;
+  breed: string;
   birthDate: string;
 }

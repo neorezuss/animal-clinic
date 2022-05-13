@@ -2,6 +2,7 @@ package com.example.animal.clinic.back.service;
 
 import com.example.animal.clinic.back.dto.PetDto;
 import com.example.animal.clinic.back.entity.Pet;
+import com.example.animal.clinic.back.entity.PetTypeEnum;
 import com.example.animal.clinic.back.entity.User;
 import com.example.animal.clinic.back.exception.PetNotFoundException;
 import com.example.animal.clinic.back.repository.PetRepository;
@@ -29,14 +30,15 @@ public class PetServiceImpl implements PetService {
 
         Pet pet = Pet.builder()
                 .name(petDto.getName())
-                .petType(petTypeRepository.findByName(petDto.getPetType()))
+                .petType(petTypeRepository.findByName(PetTypeEnum.valueOf(petDto.getPetType())))
                 .birthDate(petDto.getBirthDate())
                 .user(user)
+                .breed(petDto.getBreed())
                 .build();
 
         petRepository.save(pet);
         log.info("New pet {} was added.", petDto.toString());
-        return petDto;
+        return convertToDto(pet);
     }
 
     @Override
@@ -51,7 +53,8 @@ public class PetServiceImpl implements PetService {
         }
 
         pet.setName(petDto.getName());
-        pet.setPetType(petTypeRepository.findByName(petDto.getPetType()));
+        pet.setPetType(petTypeRepository.findByName(PetTypeEnum.valueOf(petDto.getPetType())));
+        pet.setBreed(pet.getBreed());
         pet.setBirthDate(petDto.getBirthDate());
 
         petRepository.save(pet);
@@ -61,7 +64,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public boolean deletePet(Long petId) {
+    public Long deletePet(Long petId) {
         Pet pet = petRepository.findById(petId)
                 .orElseThrow(() -> new PetNotFoundException("Pet not found with id: " + petId));
 
@@ -71,9 +74,19 @@ public class PetServiceImpl implements PetService {
             throw new IllegalArgumentException("You dont have pet with id: " + petId);
         }
 
-        petRepository.delete(pet);
+        petRepository.deleteById(petId);
         log.info("Pet with id {} was deleted.", pet.getId());
 
-        return true;
+        return petId;
+    }
+
+    private PetDto convertToDto(Pet pet) {
+        return PetDto.builder()
+                .id(pet.getId())
+                .name(pet.getName())
+                .petType(pet.getPetType().getName().name())
+                .breed(pet.getBreed())
+                .birthDate(pet.getBirthDate())
+                .build();
     }
 }

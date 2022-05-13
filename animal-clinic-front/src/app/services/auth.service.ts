@@ -5,6 +5,7 @@ import { Registration } from "../classes/registration";
 import { Login } from "../classes/login";
 import {catchError, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
+import {ChangePassword} from "../classes/change-password";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,9 @@ export class AuthService {
 
   resetPassword(email: { email: string }): Observable<boolean> {
     return this.http.post<boolean>(this.authControllerUrl + '/reset-password', email)
+  }
+
+  changePassword(changePassword: ChangePassword): Observable<boolean> {
+    return this.http.post<boolean>(this.authControllerUrl + '/change-password', changePassword)
   }
 }

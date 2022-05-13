@@ -1,7 +1,8 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {catchError, Observable, repeat, retry, throwError} from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { Injectable } from "@angular/core";
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {catchError, mergeMap, Observable, throwError} from "rxjs";
+import {AuthService} from "../services/auth.service";
+import {Injectable} from "@angular/core";
+import {AuthResponse} from "../classes/auth-response";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -13,23 +14,26 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authReq = this.updateHeader(req)
 
-    console.log("token was attached")
-
     return next.handle(authReq).pipe(
-      catchError(err => {
-        return this.authService.refreshTokens().subscribe(data => {
-          localStorage.setItem('accessToken', data.accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
-          console.log('Tokens were refreshed')
-          return next.handle(this.updateHeader(req))
-        })
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401 || err.status === 403) {
+          return this.authService.refreshTokens()
+            .pipe(
+              mergeMap((authResponse: AuthResponse) => {
+                localStorage.setItem('accessToken', authResponse.accessToken)
+                localStorage.setItem('refreshToken', authResponse.refreshToken)
+
+                return next.handle(this.updateHeader(authReq))
+              })
+            )
+        }
+        return throwError(err)
       })
     )
   }
 
   updateHeader(req: HttpRequest<any>) {
     return req.clone({
-      // @ts-ignore
       headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem('accessToken')),
     });
   }

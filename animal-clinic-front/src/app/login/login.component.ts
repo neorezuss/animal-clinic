@@ -1,5 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
-import { NgForm } from "@angular/forms";
+import {Component} from '@angular/core';
+import {NgForm} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {catchError, throwError} from "rxjs";
@@ -19,6 +19,13 @@ export class LoginComponent {
   }
 
   onSubmit(form: NgForm) {
+    for (let key in form.form.controls) {
+      form.form.controls[key].markAsTouched()
+    }
+
+    if (!form.valid)
+      return;
+
     this.authService.logIn({email: form.form.value.email, password: form.form.value.password})
       .pipe(
         catchError(err => {
@@ -39,13 +46,22 @@ export class LoginComponent {
   }
 
   onPasswordResetSubmit(form: NgForm) {
+    for (let key in form.form.controls) {
+      form.form.controls[key].markAsTouched()
+    }
+
+    if (!form.valid)
+      return;
+
     this.authService.resetPassword({email: form.form.value.email})
+      .pipe(
+        catchError(err => {
+          this.emailExists = false
+          return throwError(err)
+        }))
       .subscribe(
         data => {
           this.modalService.dismissAll()
-        },
-        error => {
-          this.emailExists = false
         });
   }
 }

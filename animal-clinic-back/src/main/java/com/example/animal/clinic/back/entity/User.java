@@ -53,7 +53,7 @@ public class User {
     )
     @Singular
     private List<Role> roles;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Pet> pets;
 }
 

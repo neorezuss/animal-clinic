@@ -6,6 +6,7 @@ import com.example.animal.clinic.back.entity.MedicalServicePrice;
 import com.example.animal.clinic.back.entity.MedicalServiceType;
 import com.example.animal.clinic.back.repository.MedicalServiceTypeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class MedicalServiceServiceImpl implements MedicalServiceService {
 
     @Override
     public List<MedicalServiceTypeDto> getMedicalServiceTypes() {
-        return medicalServiceTypeRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+        return medicalServiceTypeRepository.findAll(Sort.by("name")).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     private MedicalServiceTypeDto convertToDto(MedicalServiceType medicalServiceType) {

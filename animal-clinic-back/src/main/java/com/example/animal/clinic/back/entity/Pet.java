@@ -36,11 +36,11 @@ public class Pet {
     private String name;
     @ManyToOne
     @JoinColumn(name="user_id")
-    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name="pet_type_id")
     private PetType petType;
+    private String breed;
     @Basic
     private Date birthDate;
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)

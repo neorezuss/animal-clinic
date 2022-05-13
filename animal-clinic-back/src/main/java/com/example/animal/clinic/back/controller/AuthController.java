@@ -1,14 +1,13 @@
 package com.example.animal.clinic.back.controller;
 
+import com.example.animal.clinic.back.dto.ChangePasswordDto;
 import com.example.animal.clinic.back.dto.EmailDto;
 import com.example.animal.clinic.back.dto.LoginDto;
 import com.example.animal.clinic.back.dto.RefreshTokenDto;
 import com.example.animal.clinic.back.dto.RegistrationDto;
-import com.example.animal.clinic.back.dto.ChangePasswordDto;
 import com.example.animal.clinic.back.security.AuthResponse;
 import com.example.animal.clinic.back.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,7 @@ public class AuthController {
     @PostMapping("/reset-password")
     public boolean resetPassword(
             @RequestBody EmailDto emailDto
-            ) {
+    ) {
         return authService.resetPassword(emailDto);
     }
 

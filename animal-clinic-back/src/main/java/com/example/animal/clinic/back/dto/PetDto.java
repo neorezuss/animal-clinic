@@ -15,6 +15,7 @@ import java.sql.Date;
 public class PetDto {
     private Long id;
     private String name;
-    private PetTypeEnum petType;
+    private String petType;
+    private String breed;
     private Date birthDate;
 }
