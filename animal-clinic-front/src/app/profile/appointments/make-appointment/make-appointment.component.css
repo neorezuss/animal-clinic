@@ -1,0 +1,23 @@
+input:focus, button:focus, select:focus {
+  outline: none;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+label {
+  font-size: 20px;
+}
+
+option {
+  font-size: 20px;
+}
+
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
+
+.invalid {
+  border: 2px solid red;
+}
+

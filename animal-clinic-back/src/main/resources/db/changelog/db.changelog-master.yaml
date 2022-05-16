@@ -1,0 +1,54 @@
+databaseChangeLog:
+
+  -  changeSet:
+       id: 0
+       author: aliaksei
+       changes:
+         changes:
+           - tagDatabase:
+               tag: empty_db
+
+  - include:
+      file: changesets/create-table-users.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-passwords.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-roles.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/fill-table-roles.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-user-role.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-medical-service-types.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-pet-types.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-pets.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/fill-table-pet-types.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-specialists.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-medical-service-prices.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changesets/create-table-medical-services.sql
+      relativeToChangelogFile: true
+
+  - changeSet:
+      id: 1
+      author: aliaksei
+      changes:
+        changes:
+          - tagDatabase:
+              tag: v1.0

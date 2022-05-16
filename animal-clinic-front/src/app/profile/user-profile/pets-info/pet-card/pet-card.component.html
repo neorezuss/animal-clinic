@@ -1,0 +1,101 @@
+<div class="row g-0">
+  <div class="col-md-1 p-2">
+    <img src="{{ petType[pet.petType] }}" class="img-fluid rounded-start mt-1">
+  </div>
+  <div class="col-md-8">
+    <div class="card-body d-flex">
+        <h5 class="card-title">{{ pet.name }}</h5>
+        <div class="px-3">
+        <p class="card-text close-item">Порода: {{ pet.breed }}</p>
+        <p class="card-text close-item"><small class="text-muted">Дата рождения: {{ formatDate(pet.birthDate) }}</small></p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3 text-end align-self-center p-3">
+    <button type="button" class="btn btn-sm btn-outline-warning" (click)="openModal(updatePetModal)">
+      Изменить
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-danger" style="margin-left: 5px;" (click)="openModal(deletePetModal)">
+      Удалить
+    </button>
+  </div>
+</div>
+
+<ng-template let-modal #deletePetModal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="margin-left: 10px">Удаление питомца</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="col-12">
+        <p style="text-align: justify;">
+          Вы действительно хотите удалить питомца <strong>{{ pet.name }}</strong>?
+        </p>
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">
+            Отмена
+          </button>
+          <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" (click)="onDeletePetModalSubmit()">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template let-modal #updatePetModal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="margin-left: 10px">Изменение питомца</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form (ngSubmit)="onUpdatePetModalSubmit(updatePet)" #updatePet="ngForm" class="col-12">
+
+        <input type="hidden" class="form-control" id="id" ngModel="{{ pet.id }}" name="id" #id='ngModel'>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Имя питомца</label>
+          <input type="text" class="form-control" id="name" ngModel="{{ pet.name }}" name="name" #name='ngModel' required minlength="2">
+          <div class="form-text text-danger" *ngIf="!name.valid && name.touched">
+            Длина имени питомца не может быть меньше 2 символов!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="petType" class="form-label">Тип питомца</label>
+          <select class="form-select" id="petType" ngModel="{{ pet.petType }}" name="petType" #petType='ngModel' required>
+            <option value="CAT">Кот</option>
+            <option value="DOG">Собака</option>
+            <option value="BIRD">Птица</option>
+          </select>
+          <div class="form-text text-danger" *ngIf="!petType.valid && petType.touched">
+            Порода питомца не заполнена!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="breed" class="form-label">Порода питомца</label>
+          <input type="text" class="form-control" id="breed" ngModel="{{ pet.breed }}" name="breed" #breed='ngModel' required minlength="2">
+          <div class="form-text text-danger" *ngIf="!breed.valid && breed.touched">
+            Длина названия породы питомца не может быть меньше 2 символов!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="birthDate" class="form-label">Дата рождения питомца</label>
+          <input type="date" class="form-control" id="birthDate" ngModel="{{ pet.birthDate }}" name="birthDate" #birthDate='ngModel' required>
+          <div class="form-text text-danger" *ngIf="!birthDate.valid && birthDate.touched">
+            Дата рождения не заполнена!
+          </div>
+        </div>
+
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Отмена</button>
+          <button type="submit" class="btn btn-outline-success" style="margin-left: 2px;">Изменить питомца</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+

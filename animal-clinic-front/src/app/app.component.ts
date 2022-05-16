@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AuthService} from "./services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'animal-clinic-front';
+
+  constructor(public authService: AuthService) {
+  }
+
+  onLogOut() {
+    this.authService.logOut()
+  }
 }

@@ -1,0 +1,23 @@
+input:focus, button:focus {
+  outline: none;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.search-div {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.scale {
+  transition: 0.3s;
+}
+.scale:hover {
+  transform: scale(1.05);
+}
+
+input {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
