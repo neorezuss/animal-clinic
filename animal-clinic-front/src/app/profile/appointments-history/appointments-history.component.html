@@ -15,7 +15,7 @@
       <div class="accordion-body">
 
       <app-appointment-history-card *ngFor="let appointment of petAppointment.appointments" [appointment]="appointment"
-                            class="p-2 fs-6 m-1"></app-appointment-history-card>
+                                    [appointments]="petAppointment.appointments" [petId]="petAppointment.id" class="p-2 fs-6 m-1"></app-appointment-history-card>
 
         <div *ngIf="petAppointment.appointments.length == 0">
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

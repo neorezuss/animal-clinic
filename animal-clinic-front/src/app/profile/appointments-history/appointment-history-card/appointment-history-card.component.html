@@ -1,21 +1,80 @@
-<div class="row g-0 bg-secondary borderElement">
+<div class="row g-0 borderElement scale border border-dark border-1"
+  [ngClass]="{ 'with-result': hasResult(appointment), 'without-result': !hasResult(appointment) }"
+>
   <div class="col-md-3 p-2">
     <div class="d-flex">
       <p class="p-2">{{ formatDate(appointment.date) }} </p>
       <p class="p-2">{{ parseTime(appointment.time) }} </p>
     </div>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-9 d-flex">
     <div class="card-body d-flex">
-      <h5 class="card-title">{{ appointment.name }}</h5>
+      <h5 class="card-title" style="width: 240px">{{ appointment.name }}</h5>
       <div class="px-3">
-        <p class="card-text close-item"><small class="text-muted">
+        <p *ngIf="appointment.specialist != null" class="card-text close-item"><small class="text-dark">
           Специалист: {{ getSpecialistSurnameAndInitials(appointment.specialist) }}
         </small></p>
-        <p class="card-text close-item"><small class="text-muted">
+        <p class="card-text close-item"><small class="text-dark">
           Номер кабинета: {{ appointment.officeNumber }}
         </small></p>
       </div>
     </div>
+    <div *ngIf="canBeCancelled(appointment.date)" class="text-end my-4" style="margin-right: 15px;">
+      <button type="button" class="btn btn-outline-danger" (click)="openModal(cancelAppointment)">Отменить</button>
+    </div>
+
+    <div *ngIf="hasResult(appointment)" class="text-end my-4" style="margin-right: 15px;">
+      <button type="button" class="btn btn-outline-dark" (click)="openModal(appointmentResult)">Результат</button>
+    </div>
   </div>
 </div>
+
+<ng-template let-modal #cancelAppointment>
+  <div class="modal-header">
+    <h4 class="modal-title" style="margin-left: 10px">Отмена записи</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="col-12">
+        <p style="text-align: justify;">
+          Вы действительно хотите отменить запись на услугу
+          <strong>[{{ formatDate(appointment.date) }} {{ parseTime(appointment.time) }}] {{ appointment.name }}</strong>?
+        </p>
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">
+            Отмена
+          </button>
+          <button type="button" class="btn btn-outline-danger" style="margin-left: 2px;" (click)="onCancelAppointment()">
+            Отменить запись
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template let-modal #appointmentResult>
+  <div class="modal-header">
+    <h4 class="modal-title" style="margin-left: 10px">Результат</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="col-12">
+        <div class="mt-3 d-flex">
+          <label class="form-label">Услуга: [{{ formatDate(appointment.date) }} {{ parseTime(appointment.time) }}] {{ appointment.name }}</label>
+        </div>
+        <div class="mt-3 d-flex flex-column">
+          <label class="form-label">Результат услуги: </label>
+          <label class="form-label">{{ appointment.result }}</label>
+        </div>
+        <div class="text-end" style="margin-top: 25px;">
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

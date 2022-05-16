@@ -12,3 +12,18 @@ input, button:focus {
 .borderElement {
   border-radius: 25px;
 }
+
+.scale {
+  transition: 0.3s;
+}
+.scale:hover {
+  transform: scale(1.05);
+}
+
+.with-result {
+  background-color: rgb(0, 255, 153);
+}
+
+.without-result {
+  background-color: rgb(242, 242, 242);
+}
