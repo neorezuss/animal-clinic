@@ -57,7 +57,7 @@ import javax.sql.DataSource;
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
-                .antMatchers("/api/v1/medical-services/**").permitAll()
+                .antMatchers("/api/v1/medical-services/type**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

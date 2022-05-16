@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         password.setPassword(passwordEncoder.encode(newPassword));
         passwordRepository.save(password);
 
-        new Thread(() -> emailSenderService.sendPasswordRecoveryEmail(
+        new Thread(() -> emailSenderService.sendPasswordResetEmail(
                 emailDto.getEmail(),
                 newPassword)).start();
 
@@ -95,7 +95,7 @@ public class AuthServiceImpl implements AuthService {
         password.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
         passwordRepository.save(password);
 
-        new Thread(() -> emailSenderService.sendPasswordRecoveryEmail(
+        new Thread(() -> emailSenderService.sendPasswordChangeEmail(
                 changePasswordDto.getEmail(),
                 changePasswordDto.getNewPassword())).start();
 

@@ -1,9 +1,8 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {Pet} from "../../../classes/pet";
-import {FormControl, NgForm, NgModel} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PetService} from "../../../services/pet.service";
-import {catchError, throwError} from "rxjs";
 
 @Component({
   selector: 'app-pets-info',

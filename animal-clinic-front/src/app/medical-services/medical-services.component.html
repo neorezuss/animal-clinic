@@ -7,7 +7,7 @@
   </div>
   <div class="container cards mx-2" *ngIf="isFetched">
     <div class="row">
-      <app-medical-service-card class="card cardd mx-3 my-3 scale"
+      <app-medical-service-card class="card cardd mx-3 my-3 scale" type="button"
         *ngFor="let medicalService of filteredMedicalServices"
         [medicalService]="medicalService"
         (click)="onCardClick(medicalServiceModal)"
@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-outline-success" (click)="modal.dismiss('Cross click')">Записаться</button>
+            <button *ngIf="authService.isLoggedIn" type="button" class="btn btn-outline-success" (click)="makeAppointment(medicalService.name)">Записаться</button>
             <div *ngIf="!authService.isLoggedIn" class="d-flex flex-row">
               <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

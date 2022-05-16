@@ -1,0 +1,122 @@
+<h4>Запись на услугу {{ serviceName }}</h4>
+<hr>
+<div *ngIf="medicalServiceSchedules.length > 0" class="accordion" id="accordionExample">
+  <div *ngFor="let scheduleDate of medicalServiceScheduleDates" class="accordion-item border-dark border-1">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse"
+              attr.data-bs-target="#id{{scheduleDate}}"
+              aria-expanded="false" attr.aria-controls="id{{scheduleDate}}">
+        {{ getWeekDay(scheduleDate) }} {{ formatDate(scheduleDate) }}
+      </button>
+    </h2>
+    <div id="id{{scheduleDate}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body d-flex flex-wrap">
+
+          <div *ngFor="let schedule of filterMedicalServiceSchedulesByDate(scheduleDate)">
+            <div type="button" (click)="openModal(acceptServiceModal, schedule)" class="badge badge-primary p-2 fs-6 m-1">
+              {{ parseTime(schedule.time) }} {{ getSpecialistSurnameAndInitials(schedule.specialist) }}
+              К.{{ schedule.officeNumber }}
+            </div>
+
+            <ng-template let-modal #acceptServiceModal>
+
+              <div class="modal-header">
+                <h4 class="modal-title" style="margin-left: 10px">Запись на услугу</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                        (click)="modal.dismiss('Cross click')"></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="container">
+                  <form (ngSubmit)="onAcceptModalSubmit(accept, schedule)" #accept="ngForm" class="col-12">
+
+                    <input type="hidden" id="medicalServiceId" ngModel="{{ schedule.id }}"
+                           name="medicalServiceId" #medicalServiceId='ngModel'>
+
+                    <div class="mt-3 d-flex">
+                      <label class="form-label">Название услуги: {{ serviceName }}</label>
+                    </div>
+
+                    <div class="mt-3 d-flex">
+                      <label class="form-label">Дата услуги: {{ formatDate(schedule.date) }}</label>
+                    </div>
+
+                    <div class="mt-3 d-flex">
+                      <label class="form-label">Дата услуги: {{ parseTime(schedule.time) }}</label>
+                    </div>
+
+                    <div *ngIf="schedule.specialist != null" class="mt-3 d-flex">
+                      <label class="form-label">Специалист:
+                        {{ schedule.specialist.lastName }}
+                        {{ schedule.specialist.firstName }}
+                        {{ schedule.specialist.patronymic }}
+                      </label>
+                    </div>
+
+                    <div class="mt-3 d-flex">
+                      <label class="form-label">Кабинет: {{ schedule.officeNumber }}</label>
+                    </div>
+
+                    <div class="mt-3">
+                      <div *ngIf="!userDoesntHavePetsForThisService">
+                        <label for="petId" class="form-label">Выберите питомца:</label>
+                        <select class="form-select" id="petId" ngModel name="petId" #petId='ngModel' required>
+                          <option *ngFor="let pet of userValidPets" value="{{ pet.id }}">{{ pet.name }}</option>
+                        </select>
+                        <div class="form-text text-danger" *ngIf="!petId.valid && petId.touched">
+                          Питомец не выбран!
+                        </div>
+                      </div>
+                      <div *ngIf="userDoesntHavePetsForThisService">
+                        <label class="form-label text-danger" style="text-align: justify">
+                          У вас не питомцев, для которых доступна данная услуга!
+                          Вы можете добавить нового питомца в своем профиле.
+                        </label>
+                      </div>
+                      <div class="row">
+                        <small class="text-muted">Эта услуга доступна только для следующих типов животных: </small>
+                        <small *ngFor="let petType of schedule.availablePetTypes"
+                               class="text-muted col col-auto m-0">{{ petTypeNameEnum[petType] }}</small>
+                      </div>
+                    </div>
+
+                    <div class="text-end" style="margin-top: 25px;">
+                      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">
+                        Отмена
+                      </button>
+                      <button type="submit" [disabled]="userDoesntHavePetsForThisService" class="btn btn-outline-success" style="margin-left: 2px;">Записаться
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="medicalServiceSchedules.length == 0" style="margin-bottom: 270px">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+  </svg>
+
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+      <use xlink:href="#exclamation-triangle-fill"/>
+    </svg>
+    <div>Запись на данную услугу временно отсутствует!</div>
+  </div>
+</div>

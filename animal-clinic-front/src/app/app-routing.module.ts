@@ -9,8 +9,10 @@ import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import {UserProfileComponent} from "./profile/user-profile/user-profile.component";
-import {MakeAppointmentsComponent} from "./profile/make-appointments/make-appointments.component";
 import {AppointmentsHistoryComponent} from "./profile/appointments-history/appointments-history.component";
+import {AppointmentsComponent} from "./profile/appointments/appointments.component";
+import {AppointmentListComponent} from "./profile/appointments/appointment-list/appointment-list.component";
+import {MakeAppointmentComponent} from "./profile/appointments/make-appointment/make-appointment.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,7 +24,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, children: [
       { path: 'user-profile', component: UserProfileComponent },
-      { path: 'make-appointments', component: MakeAppointmentsComponent },
+      { path: 'appointments', component: AppointmentsComponent, children: [
+          { path: 'appointment-list', component: AppointmentListComponent },
+          { path: 'make-appointment/:name', component: MakeAppointmentComponent },
+        ] },
       { path: 'appointments-history', component: AppointmentsHistoryComponent },
     ] },
   { path: '', component: HomeComponent },

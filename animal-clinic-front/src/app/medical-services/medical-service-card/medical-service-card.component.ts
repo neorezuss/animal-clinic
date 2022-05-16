@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MedicalService} from "../../classes/medical-service";
-declare var $: any;
 
 @Component({
   selector: 'app-medical-service-card',

@@ -40,6 +40,21 @@ public class CustomRestExceptionHandler {
     }
 
     @ExceptionHandler
+    public ResponseEntity<ApiErrorResponse> handleMedicalServiceNotFoundException(MedicalServiceNotFoundException exception) {
+        ApiErrorResponse apiErrorResponse =
+                new ApiErrorResponse(HttpStatus.NOT_FOUND, exception.getLocalizedMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(apiErrorResponse.getStatus()).body(apiErrorResponse);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiErrorResponse> handleMedicalServiceAppointmentIsAlreadyTakenException(
+            MedicalServiceAppointmentIsAlreadyTakenException exception) {
+        ApiErrorResponse apiErrorResponse =
+                new ApiErrorResponse(HttpStatus.CONFLICT, exception.getLocalizedMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(apiErrorResponse.getStatus()).body(apiErrorResponse);
+    }
+
+    @ExceptionHandler
     public ResponseEntity<ApiErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         StringBuilder errors = new StringBuilder();
         exception.getBindingResult().getAllErrors().forEach((error) -> {

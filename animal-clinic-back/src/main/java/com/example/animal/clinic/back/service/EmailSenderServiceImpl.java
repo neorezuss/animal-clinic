@@ -32,7 +32,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
     @Override
-    public void sendPasswordRecoveryEmail(String email, String password) {
+    public void sendPasswordResetEmail(String email, String password) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(email);
@@ -50,7 +50,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
     @Override
-    public void sendPasswordResetEmail(String email, String password) {
+    public void sendPasswordChangeEmail(String email, String password) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(email);

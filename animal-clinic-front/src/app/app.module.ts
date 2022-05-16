@@ -21,12 +21,17 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {UserProfileComponent} from './profile/user-profile/user-profile.component';
-import {MakeAppointmentsComponent} from './profile/make-appointments/make-appointments.component';
 import {AppointmentsHistoryComponent} from './profile/appointments-history/appointments-history.component';
 import {AuthInterceptor} from "./interceptors/auth-interceptor";
 import {UserInfoComponent} from './profile/user-profile/user-info/user-info.component';
 import {PetsInfoComponent} from './profile/user-profile/pets-info/pets-info.component';
 import { PetCardComponent } from './profile/user-profile/pets-info/pet-card/pet-card.component';
+import { AppointmentsComponent } from './profile/appointments/appointments.component';
+import { AppointmentListComponent } from './profile/appointments/appointment-list/appointment-list.component';
+import { MakeAppointmentComponent } from './profile/appointments/make-appointment/make-appointment.component';
+import { HistoryPetCardComponent } from './profile/appointments-history/history-pet-card/history-pet-card.component';
+import {AppointmentCardComponent} from "./profile/appointments/appointment-list/appointment-card/appointment-card.component";
+import { AppointmentHistoryCardComponent } from './profile/appointments-history/appointment-history-card/appointment-history-card.component';
 
 @NgModule({
   declarations: [
@@ -42,11 +47,17 @@ import { PetCardComponent } from './profile/user-profile/pets-info/pet-card/pet-
     LoginComponent,
     ProfileComponent,
     UserProfileComponent,
-    MakeAppointmentsComponent,
     AppointmentsHistoryComponent,
     UserInfoComponent,
     PetsInfoComponent,
     PetCardComponent,
+    AppointmentsComponent,
+    AppointmentListComponent,
+    MakeAppointmentComponent,
+    AppointmentCardComponent,
+    HistoryPetCardComponent,
+    AppointmentCardComponent,
+    AppointmentHistoryCardComponent,
   ],
   imports: [
     BrowserModule,

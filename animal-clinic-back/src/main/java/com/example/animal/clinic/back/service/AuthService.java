@@ -15,5 +15,6 @@ public interface AuthService {
     AuthResponse refreshTokens(RefreshTokenDto refreshTokenDto);
 
     boolean resetPassword(EmailDto emailDto);
+
     boolean changePassword(ChangePasswordDto changePasswordDto);
 }
