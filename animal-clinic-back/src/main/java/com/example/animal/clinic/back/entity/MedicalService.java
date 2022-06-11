@@ -1,8 +1,6 @@
 package com.example.animal.clinic.back.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -17,20 +15,19 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "medical_services")
-@Setter
-@Getter
+@Data
 public class MedicalService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name="medical_service_type_id")
+    @JoinColumn(name = "medical_service_type_id")
     private MedicalServiceType medicalServiceType;
     @ManyToOne
-    @JoinColumn(name="specialist_id")
+    @JoinColumn(name = "specialist_id")
     private Specialist specialist;
     @ManyToOne
-    @JoinColumn(name="pet_id")
+    @JoinColumn(name = "pet_id")
     private Pet pet;
     @Basic
     private Date date;

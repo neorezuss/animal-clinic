@@ -1,12 +1,10 @@
 databaseChangeLog:
-
   -  changeSet:
-       id: 0
-       author: aliaksei
-       changes:
-         changes:
-           - tagDatabase:
-               tag: empty_db
+      id: 0
+      author: aliaksei
+      changes:
+          - tagDatabase:
+             tag: empty_db
 
   - include:
       file: changesets/create-table-users.sql

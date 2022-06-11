@@ -32,6 +32,7 @@ import { MakeAppointmentComponent } from './profile/appointments/make-appointmen
 import { HistoryPetCardComponent } from './profile/appointments-history/history-pet-card/history-pet-card.component';
 import {AppointmentCardComponent} from "./profile/appointments/appointment-list/appointment-card/appointment-card.component";
 import { AppointmentHistoryCardComponent } from './profile/appointments-history/appointment-history-card/appointment-history-card.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AppointmentHistoryCardComponent } from './profile/appointments-history/
     HistoryPetCardComponent,
     AppointmentCardComponent,
     AppointmentHistoryCardComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

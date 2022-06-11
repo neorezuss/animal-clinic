@@ -7,3 +7,6 @@ CREATE TABLE user_role
     PRIMARY KEY (user_id, role_id)
 );
 --rollback DROP TABLE user_role
+
+
+

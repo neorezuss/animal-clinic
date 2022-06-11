@@ -1,7 +1,6 @@
 package com.example.animal.clinic.back.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +13,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "medical_service_prices")
-@Getter
-@Setter
+@Data
 public class MedicalServicePrice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
