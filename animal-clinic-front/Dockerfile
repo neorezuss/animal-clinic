@@ -1,8 +1,8 @@
-FROM node:16-alpine as node
+FROM node:16-alpine AS build-step
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build --prod
+RUN npm run build
 
-FROM nginx:alpine
-COPY --from=node /app/dist/demo-app /usr/share/nginx/html
+FROM nginx:1.21-alpine
+COPY --from=build-step app/dist/animal-clinic-front /usr/share/nginx/html
