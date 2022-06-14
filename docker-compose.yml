@@ -1,0 +1,59 @@
+services:
+  postgres:
+    container_name: postgresdb
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: aliaksei
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+      POSTGRES_DB: animal-clinic
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - animal-clinic-network
+    restart: unless-stopped  
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - animal-clinic-network
+    restart: unless-stopped 
+  animal-clinic-back:
+    container_name: animal-clinic-back
+    build:
+      context: ./animal-clinic-back
+    ports:
+      - 8080:8080
+    networks:
+      - animal-clinic-network
+    depends_on:
+      - postgresdb
+  animal-clinic-front:
+    container_name: animal-clinic-front
+    build:
+      context: ./animal-clinic-front
+    ports:
+      - 4200:80
+    networks:
+      - animal-clinic-network    
+    depends_on:
+      - postgresdb
+      - animal-clinic-back
+
+networks:
+  animal-clinic-network:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
