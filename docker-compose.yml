@@ -3,10 +3,10 @@ services:
     container_name: postgresdb
     image: postgres:13-alpine
     environment:
-      POSTGRES_USER: aliaksei
+      POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
-      POSTGRES_DB: animal-clinic
+      POSTGRES_DB: animal_clinic
     volumes:
       - postgres:/data/postgres
     ports:
