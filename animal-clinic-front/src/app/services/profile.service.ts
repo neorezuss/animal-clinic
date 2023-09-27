@@ -7,7 +7,7 @@ import {UserProfile} from "../classes/user-profile";
   providedIn: 'root'
 })
 export class ProfileService {
-  private profileControllerUrl: string = 'http://localhost:8080/api/v1/user-profile';
+  private profileControllerUrl: string = 'http://localhost:30081/api/v1/user-profile';
 
   constructor(private http: HttpClient) {
   }

@@ -8,7 +8,7 @@ import {PetAppointments} from "../classes/pet-appointments";
   providedIn: 'root'
 })
 export class PetService {
-  private petControllerUrl: string = 'http://localhost:8080/api/v1/pets';
+  private petControllerUrl: string = 'http://localhost:30081/api/v1/pets';
 
   constructor(private http: HttpClient) {
   }

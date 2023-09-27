@@ -12,7 +12,7 @@ import {ChangePassword} from "../classes/change-password";
 })
 export class AuthService {
 
-  private authControllerUrl: string = 'http://localhost:8080/api/v1/auth';
+  private authControllerUrl: string = 'http://localhost:30081/api/v1/auth';
 
   isLoggedIn: boolean = false;
 
