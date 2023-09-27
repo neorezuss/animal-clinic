@@ -9,7 +9,7 @@ import {MedicalServiceSchedule} from "../classes/medical-service-schedule";
 })
 export class MedicalServiceService {
 
-  private medicalServicesUrl: string = 'http://localhost:8080/api/v1/medical-services';
+  private medicalServicesUrl: string = 'http://localhost:30081/api/v1/medical-services';
 
   constructor(private http: HttpClient) { }
 

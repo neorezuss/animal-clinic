@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @RequiredArgsConstructor
-    public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     private final static String USERS_QUERY = "SELECT email, password, enabled "
             + "FROM users INNER JOIN passwords ON users.id=user_id "
             + "WHERE email = ?";
